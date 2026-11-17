@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Folio – Portfolio analyzer</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <div class="brand-mark" aria-hidden="true">F</div>
+    <div>
+      <div class="kicker">Portfolio analyzer</div>
+      <div class="brand-name">Folio</div>
+    </div>
+  </div>
+  <nav class="masthead" aria-label="Main navigation">
+    <a href="#portfolio" aria-current="page">My Portfolio</a>
+    <button type="button">Profile</button>
+    <span>
+      <button type="button" title="Your insider activity inbox">Notifications</button>
+      <span class="badge" aria-hidden="true">0</span>
+      <span class="sr-only" role="status" aria-live="polite"></span>
+    </span>
+    <a href="#subscription">Membership</a>
+  </nav>
+  <div class="topbar-actions">
+    <div class="market-status" role="status" aria-live="polite">
+      <div><span class="dot" aria-hidden="true"></span><strong>Checking US markets…</strong></div>
+      <div class="muted">Regular and extended US trading · Updates each minute</div>
+    </div>
+    <button type="button" aria-label="Toggle theme">Theme</button>
+  </div>
+</header>
+
+<main id="portfolio">
+
+  <section class="card hero">
+    <div>
+      <div class="eyebrow">Portfolio intelligence</div>
+      <h1>Track the position, not the paperwork.</h1>
+      <p class="hero-copy">Enter what you bought or sold and your price per share. Folio tracks daily returns, dividends, and risk alongside major market benchmarks.</p>
+    </div>
+    <div class="hero-note">
+      <strong>History in perspective</strong><br>
+      <span class="muted">Daily history and latest prices. The same comparison dates.</span>
+    </div>
+  </section>
+
+  <section class="card profile" aria-label="Your portfolio">
+    <div class="profile-identity">
+      <div class="avatar" role="img" aria-label="Portfolio avatar"></div>
+      <div>
+        <div class="eyebrow">Personal portfolio <span class="verified"></span></div>
+        <h2 role="heading" aria-level="1">Your portfolio</h2>
+        <p class="help"></p>
+      </div>
+    </div>
+    <div class="profile-actions">
+      <button type="button" class="outlined" id="toggle-transactions">Edit transactions</button>
+      <button type="button" class="filled">Share</button>
+      <div>
+        <button type="button" class="filled">Refresh</button>
+        <div class="refresh-meta" role="status" aria-live="polite">Last refreshed: <span>—</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="summary" aria-label="Portfolio summary">
+    <div><span class="caption">Portfolio value · USD</span><span class="value">—</span><span class="note">Refresh to calculate</span></div>
+    <div><span class="caption">Holdings</span><span class="value">—</span><span class="note">Open positions</span></div>
+    <div><span class="caption">Prior quarter return</span><span class="value">—</span><span class="note">Time weighted · completed quarter</span></div>
+    <div><span class="caption">Available-period return</span><span class="value">—</span><span class="note">Time weighted</span></div>
+    <div><span class="caption">Top 20 weight</span><span class="value">—</span><span class="note">Of invested market value</span></div>
+    <div><span class="caption">Verified-user ranking</span><span class="value">—</span><span class="note">Primary portfolio · prior quarter</span></div>
+  </section>
+
+  <section class="card" aria-label="Creator workspace">
+    <div class="card-heading">
+      <div><h2>Creator</h2><p class="help">Accounts, saved portfolios, and trading activity.</p></div>
+      <button type="button" class="outlined" hidden>Open creator workspace</button>
+    </div>
+    <section aria-label="Creator accounts and portfolios">
+      <div class="placeholder">Creator workspace component</div>
+    </section>
+  </section>
+
+  <section class="card" aria-label="Saved portfolios">
+    <details>
+      <summary>Account &amp; plan</summary>
+      <div class="card-heading">
+        <div>
+          <h2>Your portfolios</h2>
+          <p class="help">Sign in to save and reopen portfolios on any device. Saved portfolios are accessible to you and the platform creator.</p>
+          <div aria-label="Your membership">
+            <span class="badge" style="background:var(--muted)">Free</span>
+            <button type="button">Refresh plan</button>
+            <button type="button" class="outlined" hidden>My subscription</button>
+            <p class="help"></p>
+          </div>
+        </div>
+        <div class="row">
+          <button type="button">Plans</button>
+          <button type="button" class="outlined" hidden>Creator setup</button>
+          <button type="button" class="outlined">Sign in / Create account</button>
+        </div>
+      </div>
+      <div class="card" hidden>
+        <strong>Finish creator access</strong>
+        <p>Your signed-in account is in this app's database. Copy the account reference below and send it to your app editor assistant to enable this account's Creator workspace.</p>
+        <label for="creator-ref">Signed-in account reference</label>
+        <input id="creator-ref" type="text" readonly>
+        <p class="fine-print">This reference identifies your account; it is not your password or an access code.</p>
+      </div>
+    </details>
+
+    <div class="row" style="margin-top:.75rem">
+      <div class="field grow">
+        <label for="portfolio-name">Portfolio name</label>
+        <input id="portfolio-name" type="text" value="My portfolio" placeholder="e.g. Long-term investments">
+      </div>
+      <button type="button">+ New portfolio</button>
+      <div class="field grow">
+        <label for="saved-portfolios">Saved portfolios</label>
+        <select id="saved-portfolios"><option>No saved portfolios yet</option></select>
+      </div>
+      <button type="button" class="outlined" disabled>Open portfolio</button>
+    </div>
+    <p class="help" role="status" aria-live="polite" style="margin-top:.75rem">Changes save automatically when signed in. Refresh updates prices through today.</p>
+  </section>
+
+  <nav class="tabs" role="tablist" aria-label="Portfolio pages">
+    <button type="button" role="tab" aria-selected="true" data-panel="holdings">Top Holdings</button>
+    <button type="button" role="tab" aria-selected="false" data-panel="transactions">Transactions</button>
+    <button type="button" role="tab" aria-selected="false" data-panel="allocation">Portfolio Structure</button>
+    <button type="button" role="tab" aria-selected="false" data-panel="performance">Performance History</button>
+    <button type="button" role="tab" aria-selected="false" data-panel="dividends">Dividends</button>
+    <button type="button" role="tab" aria-selected="false" data-panel="income">Passive Income</button>
+    <button type="button" role="tab" aria-selected="false" data-panel="taxest">Tax Estimator <span class="beta" title="Estimates, not tax filing advice">Beta</span></button>
+    <button type="button" role="tab" aria-selected="false" data-panel="harvest">Tax Harvester</button>
+    <button type="button" role="tab" aria-selected="false" data-panel="retirement">Retirement</button>
+  </nav>
+
+  <div>
+    <details class="card">
+      <summary>Analysis settings <span>Refresh preferences</span></summary>
+      <div class="card-heading">
+        <div><h3>Refresh preferences</h3><p class="help">Refresh updates your portfolio through today, including the latest available regular-session prices.</p></div>
+        <span class="beta">History + latest prices</span>
+      </div>
+      <p class="help">Refresh always uses today’s date and saves your portfolio automatically.</p>
+      <div class="row">
+        <div>
+          <label for="risk-free">Risk-free rate</label>
+          <span><input id="risk-free" type="number" step="0.01" value="4.50" style="width:7em"> %</span>
+          <p class="help">Annual rate used for daily excess returns.</p>
+        </div>
+      </div>
+    </details>
+    <p class="help" role="status" aria-live="polite"></p>
+  </div>
+
+  <div class="status" id="status" role="status"><span aria-hidden="true">ℹ</span><span></span></div>
+
+  <section class="workspace">
+
+    <!-- Transactions column -->
+    <div id="transactions-column" hidden>
+      <div class="section-intro">
+        <h2>Log your activity</h2>
+        <p class="help">Add buys and sells separately. Collapse a transaction to keep its summary in view.</p>
+      </div>
+      <div class="scroll" tabindex="0" role="region" aria-label="Transaction editor">
+        <section class="card">
+          <div class="card-heading">
+            <div><h3>Transactions</h3><p class="help">Use US-listed stocks and ETFs quoted in USD.</p></div>
+            <button type="button">Try a sample</button>
+          </div>
+
+          <section aria-label="Import holdings from a file">
+            <div class="card-heading">
+              <div><h4>Bring your holdings with you</h4><p class="help">Read a broker PDF, screenshot, or photo, then review the positions.</p></div>
+              <div><button type="button" class="outlined" id="toggle-import">Import file</button><span class="beta" title="Work in progress">Beta</span></div>
+            </div>
+            <div class="import-body" id="import-body">
+              <p class="help">Use a broker PDF or a clear image with column headings and share quantities visible. PDF, PNG, JPEG, WebP, or BMP · Up to 10 MB. Your browser reads the file; only detected text is sent to organize positions. The original file is not saved to your portfolio.</p>
+              <div class="row">
+                <input type="file" accept="application/pdf,.pdf,image/png,image/jpeg,image/webp,image/bmp" aria-label="Choose PDF / image">
+                <button type="button" class="filled">Read file</button>
+                <button type="button">Clear import</button>
+              </div>
+              <div>
+                <p class="help">Choose the pages containing holdings or trades. A blank end page reads up to five pages from your start page. Read up to 20 pages at a time; you can import another range afterward.</p>
+                <div class="row">
+                  <div class="field"><label for="pdf-start">From page</label><input id="pdf-start" type="number" value="1" min="1"></div>
+                  <div class="field"><label for="pdf-end">Through page</label><input id="pdf-end" type="number" placeholder="Next 5 pages" min="1"></div>
+                  <div class="field"><label for="pdf-pass">PDF password (optional)</label><input id="pdf-pass" type="password" autocomplete="off"></div>
+                </div>
+                <p class="help">PDF passwords are used only in your browser to open the file.</p>
+              </div>
+              <div role="status" aria-live="polite" class="help"></div>
+              <div>
+                <h4>Review detected positions</h4>
+                <p class="help">Check every row before importing. A holdings snapshot becomes a Buy on the date its share quantities were current; it starts performance tracking there and does not reconstruct earlier trades or dividends. Purchase prices are filled only from labelled purchase cost or average cost, never the current quote.</p>
+                <div class="row">
+                  <div class="field"><label for="import-date">Snapshot / fallback date</label><input id="import-date" type="date"></div>
+                  <div class="field"><label for="import-mode">Import into this portfolio</label><select id="import-mode"><option>Add to current portfolio</option></select></div>
+                </div>
+                <ul class="placeholder" style="list-style:none;margin:.75rem 0">
+                  <li>Detected positions appear here</li>
+                </ul>
+                <p class="help">Leave purchase price blank to use the date's closing price, or the latest regular-session quote for today. Uncheck anything you do not want to import. Sync supports up to 25 different securities per portfolio.</p>
+                <button type="button" class="filled">Add selected rows</button>
+              </div>
+            </div>
+          </section>
+
+          <p class="help" style="margin-top:1rem">Price per share is optional. Enter what you paid or received, or leave it blank to use that day's close (the latest regular-session quote for today).</p>
+          <div class="row">
+            <div class="field">
+              <label for="txn-view">Transaction view</label>
+              <select id="txn-view">
+                <option>By date section</option><option>By year</option><option>By security</option><option>Original order</option>
+              </select>
+            </div>
+            <button type="button">Regroup</button>
+            <button type="button" hidden>Collapse prior years</button>
+            <button type="button">Collapse sections</button>
+            <button type="button">Expand sections</button>
+          </div>
+
+          <div class="empty">
+            <div class="empty-mark" aria-hidden="true">+</div>
+            <h4>Your portfolio starts here</h4>
+            <p class="help">Add a stock or ETF and enter your first buy or sell. Your portfolio will contain only the securities you add.</p>
+          </div>
+          <ul class="holdings-list" style="list-style:none;padding:0;margin:0"></ul>
+          <div style="margin-top:.75rem"><button type="button" class="outlined">+ Add A Security!</button></div>
+        </section>
+      </div>
+    </div>
+
+    <!-- Readout column -->
+    <div id="readout-column">
+      <p style="text-align:right"><a href="#disclosures">Disclosures &amp; methods ↗</a></p>
+      <div class="scroll" tabindex="0" role="region" aria-label="Readout content">
+
+        <section class="card empty" id="empty-results">
+          <div class="empty-mark" aria-hidden="true">✦</div>
+          <h3>Add A Security!</h3>
+          <p class="help">Open Transactions to add your first stock or ETF. Changes save automatically. Refresh to update prices and see your holdings and performance.</p>
+          <button type="button" class="filled">+ Add A Security!</button>
+        </section>
+
+        <section id="results" class="panel" hidden>
+          <p class="help"><span class="dot" aria-hidden="true"></span>Full history · <span>Refresh to see your portfolio</span></p>
+
+          <section class="panel" id="panel-holdings" aria-label="Top holdings">
+            <div class="table-scroll" id="top-holdings"><p class="help">Refresh your portfolio to see its holdings.</p></div>
+            <details>
+              <summary>Returns &amp; portfolio anatomy</summary>
+              <div class="metric-grid">
+                <div class="metric"><span class="caption">Market value</span><div class="value">—</div><span class="fine-print">Open positions at the latest available price</span></div>
+                <div class="metric"><span class="caption">Total return</span><div class="value">—</div><span class="fine-print">Investment profit ÷ total buy capital</span></div>
+                <div class="metric"><span class="caption">Annualized return</span><div class="value">—</div><span class="fine-print">Time-weighted · completed sessions</span></div>
+                <div class="metric"><span class="caption">Dividends earned</span><div class="value">—</div><span class="fine-print">Held as cash · before tax</span></div>
+              </div>
+              <div class="card">
+                <h3>Portfolio anatomy <span class="muted" style="font-weight:400;font-size:.85rem">Inputs included</span></h3>
+                <div class="detail-row"><span>Buy capital</span><span>—</span></div>
+                <div class="detail-row"><span>Sale proceeds</span><span>—</span></div>
+                <div class="detail-row"><span>Investment profit</span><span>—</span></div>
+              </div>
+            </details>
+          </section>
+
+          <section class="panel" id="panel-allocation" aria-label="Portfolio structure" hidden>
+            <div class="card-heading">
+              <h3>Sector allocation</h3>
+              <div><label for="alloc-view">View</label><select id="alloc-view"><option>Sectors</option><option>Securities</option></select></div>
+            </div>
+            <div class="alloc-grid">
+              <section class="card" aria-label="Allocation weights and changes">
+                <div class="row" style="justify-content:space-between">
+                  <select aria-label="Snapshot"><option>Latest snapshot</option></select>
+                  <span class="caption">Weight</span><span class="caption">Change</span>
+                </div>
+                <p class="help">Refresh your portfolio to see its allocation.</p>
+              </section>
+              <section class="card" aria-label="Allocation history">
+                <div class="plot-box tall"><canvas id="chart-allocation"></canvas></div>
+              </section>
+            </div>
+            <details class="card">
+              <summary>Portfolio totals &amp; methodology</summary>
+              <div class="metrics-4">
+                <div><span class="caption">Position value</span>—</div>
+                <div><span class="caption">Open holdings</span>—</div>
+                <div><span class="caption">Largest holding</span>—</div>
+                <div><span class="caption">Top 5 concentration</span>—</div>
+                <div><span class="caption">Equity sectors</span>—</div>
+                <div><span class="caption">Largest equity sector</span>—</div>
+              </div>
+              <p class="help">Cash is excluded. Funds / ETFs are a separate group; their underlying sectors are not estimated.</p>
+            </details>
+            <section class="card" aria-label="Holdings map" hidden>
+              <h3>Holdings map <span class="muted" style="font-weight:400;font-size:.85rem">Size = position weight</span></h3>
+              <p class="help">Each tile is a holding, grouped by sector. Select a sector to explore its holdings; use the chart's path to return.</p>
+              <div class="placeholder plot-md">Treemap chart</div>
+            </section>
+            <details class="card">
+              <summary>Portfolio holdings <span>Selection, sectors &amp; position details</span></summary>
+              <div class="card-heading"><h4>Holdings at this snapshot</h4><button type="button">Select all</button></div>
+              <div class="row">
+                <input type="search" placeholder="Filter ticker, company, or sector" aria-label="Filter holdings">
+                <select aria-label="Position filter"><option>All positions</option><option>Open</option><option>Closed</option></select>
+              </div>
+              <p class="help">Position values, P&amp;L and average trade prices follow the selected snapshot. Uncheck a security to recalculate your charts and totals instantly. Sign in to customize a sector; your choices are saved to your account and used across your portfolios.</p>
+              <div class="table-scroll" tabindex="0" role="region" aria-label="Portfolio holdings table; scroll horizontally for all columns">
+                <div class="table-head" aria-hidden="true"><span></span><span>Stock / company / sector</span><span>Shares held</span><span>Value / weight</span><span>Total P&amp;L</span><span>Return on buys</span><span>Avg buy / share</span><span>Avg sell / share</span></div>
+              </div>
+              <p class="help" hidden>No holdings match these filters. Clear the search or choose All positions.</p>
+              <details>
+                <summary>Composition notes</summary>
+                <p class="fine-print">Open positions at the selected price mark, weighted by market value; sold positions and dividend cash are excluded. Today's quote-based snapshot is provisional. Current sector classifications are used for every snapshot. Funds / ETFs are grouped separately, without looking through their holdings.</p>
+                <p class="fine-print">For each security, total P&amp;L is position value plus sale proceeds and dividends minus all buy costs through the snapshot. Return on buys is P&amp;L divided by those buy costs. Average buy and sell prices are not the cost basis of the remaining shares. Performance charts use time-weighted returns over their own selected period.</p>
+              </details>
+            </details>
+          </section>
+
+          <section class="panel" id="panel-performance" aria-label="Performance and risk" tabindex="-1" hidden>
+            <section class="card" aria-label="Risk and benchmark analyzer">
+              <div class="card-heading">
+                <div><div class="eyebrow">Performance history</div><h3>Performance vs S&amp;P 500</h3></div>
+                <button type="button" class="outlined">Expand charts</button>
+              </div>
+              <div class="row">
+                <div role="group" aria-label="Portfolio weighting" class="range">
+                  <button type="button" aria-pressed="true" title="Use your actual position sizes and trades">Manager-Weighted</button>
+                  <button type="button" aria-pressed="false" title="Compare equal dollars in the securities held each day">Equal-Weighted</button>
+                </div>
+                <nav class="range" aria-label="Chart time frame">
+                  <button type="button" aria-pressed="false">1M</button>
+                  <button type="button" aria-pressed="false">3M</button>
+                  <button type="button" aria-pressed="false">6M</button>
+                  <button type="button" aria-pressed="false">YTD</button>
+                  <button type="button" aria-pressed="false">1Y</button>
+                  <button type="button" aria-pressed="true">3 Years</button>
+                  <button type="button" aria-pressed="false">5 Years</button>
+                  <button type="button" aria-pressed="false">All</button>
+                  <button type="button" aria-pressed="false">Custom</button>
+                </nav>
+              </div>
+              <div class="row" style="margin-top:.75rem">
+                <div class="field"><label for="cmp-start">Start date</label><input id="cmp-start" type="date"></div>
+                <div class="field"><label for="cmp-end">End date</label><input id="cmp-end" type="date"></div>
+              </div>
+              <div class="metrics-4">
+                <div><span class="caption">Portfolio return</span><strong>—</strong></div>
+                <div><span class="caption">S&amp;P 500 return</span><strong>—</strong></div>
+                <div><span class="caption">Difference</span><strong>—</strong></div>
+                <div><span class="caption">Portfolio annualized</span><strong>—</strong></div>
+              </div>
+              <div class="row">
+                <label style="display:flex;gap:.4em;align-items:center;margin:0"><input type="checkbox"> Show transactions</label>
+                <button type="button" class="outlined">View transactions</button>
+                <button type="button">Reset zoom</button>
+              </div>
+              <section class="performance-chart-block" aria-label="Cumulative return chart" style="margin-top:.75rem">
+                <div class="plot-box tall"><canvas id="chart-performance"></canvas></div>
+              </section>
+              <details style="margin-top:.75rem">
+                <summary>Quarterly returns &amp; drawdown</summary>
+                <h4>Quarterly returns</h4>
+                <div class="plot-box "><canvas id="chart-quarterly"></canvas></div>
+                <details>
+                  <summary>View quarterly figures</summary>
+                  <div role="table" aria-label="Quarterly returns compared with benchmark">
+                    <div role="row" class="row" style="justify-content:space-between"><span role="columnheader">Quarter</span><span role="columnheader">Portfolio</span><span role="columnheader">Benchmark</span><span role="columnheader">Difference</span></div>
+                  </div>
+                </details>
+                <h4 style="margin-top:1rem">Drawdown from period high</h4>
+                <div class="plot-box "><canvas id="chart-drawdown"></canvas></div>
+              </details>
+              <details>
+                <summary>Volatility &amp; Sharpe ratios</summary>
+                <div class="metrics-4">
+                  <div><span class="caption">Portfolio annualized volatility</span><strong>—</strong></div>
+                  <div><span class="caption">Benchmark annualized volatility</span><strong>—</strong></div>
+                  <div><span class="caption">Portfolio annualized Sharpe</span><strong>—</strong></div>
+                  <div><span class="caption">Benchmark annualized Sharpe</span><strong>—</strong></div>
+                </div>
+              </details>
+              <details>
+                <summary>Chart notes</summary>
+                <p class="fine-print">Range and weighting controls update every performance chart and risk metric. Manager-Weighted uses your actual trades and position sizes, retaining dividends as cash. Equal-Weighted is a hypothetical daily-rebalanced, equal-dollar basket of the securities held each session; rebalancing costs and taxes are not modeled. Quarterly returns compound the selected series. Today's endpoint is provisional when it uses regular-session quotes. Risk metrics use completed daily returns. Arrows mark your logged transactions. The total-return benchmark reinvests dividends.</p>
+              </details>
+            </section>
+          </section>
+
+          <section class="card panel" id="panel-dividends" aria-label="Hedge fund comparisons" hidden><div class="placeholder">Dividends / hedge fund comparison</div></section>
+          <section class="panel" id="panel-income" aria-label="Income and tax analysis" hidden><div class="placeholder">Passive income tracker</div></section>
+          <section class="panel" id="panel-taxest" aria-label="Tax estimator and hypothetical trades" hidden><div class="placeholder">Tax estimator</div></section>
+          <section class="panel" id="panel-harvest" aria-label="Tax harvester" hidden><div class="placeholder">Tax harvester</div></section>
+          <section class="panel" id="panel-retirement" aria-label="Retirement projections" hidden><div class="placeholder">Retirement projections</div></section>
+          <section class="panel" id="panel-transactions" aria-label="Transactions" hidden><div class="placeholder">Use the transaction editor on the left</div></section>
+        </section>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <span>Folio</span>
+  <span>Built for clearer decisions.</span>
+  <a href="#disclosures">Disclosures &amp; methods</a>
+</footer>
+<p class="notice">Basic visit counts and approximate country statistics help us understand site usage. Browser privacy signals are respected.</p>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
